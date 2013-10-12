@@ -1,0 +1,135 @@
+
+html, body {
+  font: 14px "Merriweather", serif;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  background-color: #000;
+  background: url("../images/1.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#wrapper {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 25%;
+  z-index: 100;
+  min-height: 450px;
+}
+
+.container {
+  position: relative;
+  z-index: 100;
+}
+
+.content {
+  position: relative;
+  max-width: 450px;
+  padding: 15px;
+  margin: -150px auto 0;
+  text-align: center;
+
+}
+
+
+#tagline {
+  height: 400px;
+}
+
+#tagline a {
+  padding: 0 5px;
+  color: #fff;
+  text-shadow: 0px 0px 30px #333;
+}
+
+h1 {
+  font-style: italic;
+  font-family:  "Merriweather", serif;
+  padding-bottom: 10px;
+  color: #fff;
+  text-shadow: 0px 0px 30px #333;
+}
+
+hr {
+  margin: 0;
+  height: 0;
+  padding: 0 0 30px 0;
+
+  border: none;
+  border-top: medium double #fff;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0px 0px 30px #333;
+}
+
+hr:after {
+  content: "§";
+  display: inline-block;
+  position: relative;
+  top: -0.7em;
+  font-size: 1.5em;
+  padding: 0 0.25em;
+  color: #fff;
+  /*background: #fff;*/
+}
+
+.hexagon {
+  overflow: hidden;
+  visibility: hidden;
+  -webkit-transform: rotate(120deg);
+  -moz-transform: rotate(120deg);
+  -o-transform: rotate(120deg);
+  transform: rotate(120deg);
+  position: relative;
+  z-index: 10000;
+}
+.hexagon-in1 {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  -webkit-transform: rotate(-60deg);
+  -moz-transform: rotate(-60deg);
+  -o-transform: rotate(-60deg);
+  transform: rotate(-60deg);
+}
+
+.hexagon-in2 {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-image: url("../images/neil.jpg");
+  background-size: 250px auto;
+  visibility: visible;
+  -webkit-transform: rotate(-60deg);
+  -moz-transform: rotate(-60deg);
+  -o-transform: rotate(-60deg);
+  transform: rotate(-60deg);
+}
+
+.hexagon2 {
+  width: 250px;
+  height: 300px;
+  left: 50%;
+  margin: 0 0 0 -125px;
+
+}
+
+@media (max-width: 480px) {
+  #tagline a {
+    position: relative;
+    clear: both;
+    float: left;
+    width: 100px;
+    left: 50%;
+    margin: 10px -50px;
+  }
+
+  #wrapper {
+    top: 150px;
+  }
+}
