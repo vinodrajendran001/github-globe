@@ -1,0 +1,224 @@
+{
+	"cities" : [{
+		"city" : "Chicago",
+		"state" : "IL",
+		"country" : "USA",
+		"longitude" : 41.8781136,
+		"latitude" : -87.6297981
+	},
+	{
+		"city" : "Philadelphia",
+		"state" : "PA",
+		"country" : "USA",
+		"longitude" : 39.952335,
+		"latitude" : -75.16378900
+	},
+	{
+		"city" : "New York",
+		"state" : "NY",
+		"country" : "USA",
+		"longitude" : 40.7143528,
+		"latitude" : -74.0059731
+	},
+	{
+		"city" : "Boston",
+		"state" : "MA",
+		"country" : "USA",
+		"longitude" : 42.3584308,
+		"latitude" : -71.0597732
+	},
+	{
+		"city" : "Washington",
+		"state" : "D.C",
+		"country" : "USA",
+		"longitude" : 38.90723089999999,
+		"latitude" : -77.0
+	},
+	{
+		"city" : "Atlanta",
+		"state" : "GA",
+		"country" : "USA",
+		"longitude" : 33.7489954,
+		"latitude" : -84.3879824
+	},
+	{
+		"city" : "St Louis",
+		"state" : "MO",
+		"country" : "USA",
+		"longitude" : 38.6270025,
+		"latitude" : -90.1994042
+	},
+	{
+		"city" : "Omaha",
+		"state" : "NE",
+		"country" : "USA",
+		"longitude" : 41.2523634,
+		"latitude" : -95.9979882
+	},
+	{
+		"city" : "Denver",
+		"state" : "CO",
+		"country" : "USA",
+		"longitude" : 39.737567,
+		"latitude" : -104.9847179
+	},
+	{
+		"city" : "San Francisco",
+		"state" : "CA",
+		"country" : "USA",
+		"longitude" : 37.7749295,
+		"latitude" : -122.419415
+	},
+	{
+		"city" : "Los Angeles",
+		"state" : "CA",
+		"country" : "USA",
+		"longitude" : 34.0522342,
+		"latitude" : -118.243684
+	},
+	{
+		"city" : "San Diego",
+		"state" : "CA",
+		"country" : "USA",
+		"longitude" : 32.715329,
+		"latitude" : -117.157255
+	},
+	{
+		"city" : "Cancun",
+		"state" : null,
+		"country" : "Mexico",
+		"longitude" : 21.158964,
+		"latitude" : -86.84593699
+	},
+	{
+		"city" : "Havana",
+		"state" : null,
+		"country" : "Cuba",
+		"longitude" : 23.116800,
+		"latitude" : -82.388557
+	},
+	{
+		"city" : "Miami",
+		"state" : "FL",
+		"country" : "USA",
+		"longitude" : 25.7889689,
+		"latitude" : -80.2264392
+	},
+	{
+		"city" : "Barcelona",
+		"state" : null,
+		"country" : "Spain",
+		"longitude" : 41.3850639,
+		"latitude" : 2.173403499
+	},
+	{
+		"city" : "Rome",
+		"state" : null,
+		"country" : "Italy"
+	},
+	{
+		"city" : "Dublin",
+		"state" : null,
+		"country" : "Ireland",
+		"longitude" : 53.4702159,
+		"latitude" : -6.23344999
+	},
+	{
+		"city" : "London",
+		"state" : null,
+		"country" : "England",
+		"longitude" : 52.3555177,
+		"latitude" : -1.17431970
+	},
+	{
+		"city" : "Bruselles",
+		"state" : null,
+		"country" : "Belgium",
+		"longitude" : 50.850340,
+		"latitude" : 4.351710
+	},
+	{
+		"city" : "Amsterdam",
+		"state" : null,
+		"country" : "Netherlands",
+		"longitude" : 52.3702157,
+		"latitude" : 4.895167899
+	},
+	{
+		"city" : "Hamburg",
+		"state" : null,
+		"country" : "Germany",
+		"longitude" : 53.5510846,
+		"latitude" : 9.993681799
+	},
+	{
+		"city" : "Helsinki",
+		"state" : null,
+		"country" : "Finland",
+		"longitude" : 60.17332440000001,
+		"latitude" : 24.9
+	},
+	{
+		"city" : "St Petersburg",
+		"state" : null,
+		"country" : "Russia",
+		"longitude" : 59.934280,
+		"latitude" : 30.335099
+	},
+	{
+		"city" : "Valetta",
+		"state" : null,
+		"country" : "Malta",
+		"longitude" : 35.897790,
+		"latitude" : 14.514106
+	},
+	{
+		"city" : "Paris",
+		"state" : null,
+		"country" : "France",
+		"longitude" : 48.856614,
+		"latitude" : 2.352221900
+	},
+	{
+		"city" : "Cape Canaveral",
+		"state" : "FL",
+		"country" : "USA",
+		"longitude" : 28.388333,
+		"latitude" : -80.603611
+	},
+	{
+		"city" : "Toronto",
+		"state" : null,
+		"country" : "Canada",
+		"longitude" : 43.653226,
+		"latitude" : -79.383184
+	},
+	{
+		"city" : "Louisville",
+		"state" : "KY",
+		"country" : "USA",
+		"longitude" : 38.252665,
+		"latitude" : -97.74306079
+	},
+	{
+		"city" : "Austin",
+		"state" : "TX",
+		"country" : "USA",
+		"longitude" : 30.267153,
+		"latitude" : -97.74306079
+	},
+	{
+		"city" : "Okinawa",
+		"state" : null,
+		"country" : "Japan",
+		"longitude" : 26.2124013,
+		"latitude" : 127.6809316
+	},
+	{
+		"city" : "Osaka",
+		"state" : null,
+		"country" : "Japan",
+		"longitude" : 34.693738,
+		"latitude" : 135.502165
+	}]
+}

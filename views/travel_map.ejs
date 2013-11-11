@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.graticule {
+  fill: none;
+  stroke: #777;
+  stroke-width: .5px;
+  stroke-opacity: .5;
+}
+
+.land {
+  fill: #bbb;
+}
+
+.arc {
+  fill: none;
+  stroke: red;
+  stroke-width: 3px;
+  stroke-linecap: round;
+}
+
+.boundary {
+  fill: none;
+  stroke: #fff;
+  stroke-width: .5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+html, body, #map-canvas {
+    height: 0%;
+    margin: 0px;
+    padding: 0px
+}
+
+#panel {
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    margin-left: -180px;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+
+<script>
+
+    var geocoder;
+    var map;
+
+    function initialize() {
+        geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(-34.397, 150.644);
+        var mapOptions = {
+            zoom: 8,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    }
+
+    function codeAddress() {
+        var address = document.getElementById('address').value;
+        geocoder.geocode( { 'address': address}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                console.log(results[0].geometry.location);
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    var width = 960,
+        height = 480;
+
+    var projection = d3.geo.equirectangular()
+    				    .scale(153)
+    				    .rotate([90, 0])
+    				    .translate([width / 2, height / 2])
+    				    .precision(.1);
+
+    var path = d3.geo.path()
+        .projection(projection);
+
+    var graticule = d3.geo.graticule();
+
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    svg.append("path")
+        .datum(graticule)
+        .attr("class", "graticule")
+        .attr("d", path);
+
+    var chicago =
+
+    d3.json("/data/world-50m.json", function(error, world) {
+      svg.insert("path", ".graticule")
+          .datum(topojson.feature(world, world.objects.land))
+          .attr("class", "land")
+          .attr("d", path);
+
+      svg.insert("path", ".graticule")
+          .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+          .attr("class", "boundary")
+          .attr("d", path);
+    });
+
+    var cities = {};
+    d3.json("/data/cities.json", function(error, json) {
+    	if (error) return console.log(error);
+    	for(var i=0;i<json.cities.length;i++) {
+    		cities[json.cities[i].city] = json.cities[i]
+    	}
+
+    	d3.json("/data/travels.json", function(error, travelJson) {
+    		for(var i=0;i<travelJson.travels.length;i++) {
+    			var src = cities[travelJson.travels[i].src],
+    				dest = cities[travelJson.travels[i].dest];
+    			svg.append("path")
+    			    .datum({type: "LineString", coordinates: [[src.latitude, src.longitude], [dest.latitude, dest.longitude]]})
+    			    .attr("class", "arc")
+    			    .attr("d", path);
+    		}
+    	});
+    });
+
+    d3.select(self.frameElement).style("height", height + "px");
+
+</script>

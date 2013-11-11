@@ -2,95 +2,144 @@
 <meta charset="utf-8">
 <style>
 
-.background {
+.graticule {
   fill: none;
-  pointer-events: all;
+  stroke: #777;
+  stroke-width: .5px;
+  stroke-opacity: .5;
 }
 
-#states {
-  fill: #aaa;
+.land {
+  fill: #bbb;
 }
 
-#states .active {
-  fill: orange;
+.arc {
+  fill: none;
+  stroke: red;
+  stroke-width: 3px;
+  stroke-linecap: round;
 }
 
-#state-borders {
+.boundary {
   fill: none;
   stroke: #fff;
-  stroke-width: 1.5px;
+  stroke-width: .5px;
   stroke-linejoin: round;
   stroke-linecap: round;
-  pointer-events: none;
+}
+
+
+#panel {
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    margin-left: -180px;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
 }
 
 </style>
 <body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script>
+    var width = 960,
+        height = 480,
+        projection = d3.geo.equirectangular()
+        				   .scale(153)
+        				   .rotate([90, 0])
+        				   .translate([width / 2, height / 2])
+        				   .precision(.1),
+        path = d3.geo.path()
+                     .projection(projection),
+        graticule = d3.geo.graticule(),
+        svg = d3.select("body").append("svg")
+                .attr("width", width)
+                .attr("height", height),
+        geocoder = null,
+        map = null,
+        cities = {};
 
-var width = 960,
-    height = 500,
-    centered;
 
-var projection = d3.geo.albersUsa()
-    .scale(1070)
-    .translate([width / 2, height / 2]);
+    function initialize() {
+        geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(-34.397, 150.644);
+        var mapOptions = {
+            zoom: 8,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    }
 
-var path = d3.geo.path()
-    .projection(projection);
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    function codeAddress(city) {
+        var address = city.city + ' ' + city.state + ' ' + city.country;
+        // geocoder.geocode( { 'address': address}, function(results, status) {
+        //     if (status == google.maps.GeocoderStatus.OK) {
+        //         console.log(address, results[0].geometry.location);
+        //         // city.latitude =
+        //         // city.longitude =
+        //         var marker = new google.maps.Marker({
+        //             map: map,
+        //             position: results[0].geometry.location
+        //         });
+        //     } else {
+        //         alert('Geocode was not successful for the following reason: ' + status);
+        //     }
+        // });
+    }
 
-svg.append("rect")
-    .attr("class", "background")
-    .attr("width", width)
-    .attr("height", height)
-    .on("click", clicked);
+    google.maps.event.addDomListener(window, 'load', initialize);
 
-var g = svg.append("g");
+    svg.append("path")
+       .datum(graticule)
+       .attr("class", "graticule")
+       .attr("d", path);
 
-d3.json("/data/us.json", function(error, us) {
-  g.append("g")
-      .attr("id", "states")
-    .selectAll("path")
-      .data(topojson.feature(us, us.objects.states).features)
-    .enter().append("path")
-      .attr("d", path)
-      .on("click", clicked);
+    d3.json("/data/world-50m.json", function(error, world) {
+        svg.insert("path", ".graticule")
+           .datum(topojson.feature(world, world.objects.land))
+           .attr("class", "land")
+           .attr("d", path);
 
-  g.append("path")
-      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
-      .attr("id", "state-borders")
-      .attr("d", path);
-});
+        svg.insert("path", ".graticule")
+           .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+           .attr("class", "boundary")
+           .attr("d", path);
+    });
 
-function clicked(d) {
-  var x, y, k;
+    d3.json("/data/cities.json", function(error, json) {
 
-  if (d && centered !== d) {
-    var centroid = path.centroid(d);
-    x = centroid[0];
-    y = centroid[1];
-    k = 4;
-    centered = d;
-  } else {
-    x = width / 2;
-    y = height / 2;
-    k = 1;
-    centered = null;
-  }
+    	if (error) return console.log(error);
 
-  g.selectAll("path")
-      .classed("active", centered && function(d) { return d === centered; });
+    	for(var i=0;i<json.cities.length;i++) {
+    		var city = cities[json.cities[i].city] = json.cities[i];
+    		codeAddress(city);
+    	}
 
-  g.transition()
-      .duration(750)
-      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-      .style("stroke-width", 1.5 / k + "px");
-}
+    	d3.json("/data/travels.json", function(error, travelJson) {
+    		for(var i=0;i<travelJson.travels.length;i++) {
+    			var src = cities[travelJson.travels[i].src],
+    				dest = cities[travelJson.travels[i].dest];
+
+                if (src.latitude && dest.latitude) {
+                    svg.append("path")
+                        .datum({type: "LineString", coordinates: [[src.latitude, src.longitude], [dest.latitude, dest.longitude]]})
+                        .attr("class", "arc")
+                        .attr("d", path);
+                }
+    		}
+    	});
+    });
+
+    d3.select(self.frameElement).style("height", height + "px");
 
 </script>
+
+<div id="panel">
+</div>
+<div id="map-canvas"></div>
