@@ -1,135 +1,100 @@
-
-html, body {
-  font: 14px "Merriweather", serif;
+body {
+  font: 300 36px "Helvetica Neue";
+  height: 640px;
+  margin: 80px 160px 80px 160px;
   overflow: hidden;
-  padding: 0;
+  position: relative;
+  width: 960px;
+}
+
+a:link, a:visited {
+  color: #777;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #666;
+}
+
+blockquote {
   margin: 0;
-  background-color: #000;
-  background: url("../images/1.jpg") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
 }
 
-#wrapper {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 25%;
-  z-index: 100;
-  min-height: 450px;
+blockquote:before {
+  content: "â€œ";
+  position: absolute;
+  left: -.4em;
 }
 
-.container {
-  position: relative;
-  z-index: 100;
+blockquote:after {
+  content: "â€";
+  position: absolute;
 }
 
-.content {
-  position: relative;
-  max-width: 450px;
-  padding: 15px;
-  margin: -150px auto 0;
-  text-align: center;
-
-}
-
-
-#tagline {
-  height: 400px;
-}
-
-#tagline a {
-  padding: 0 5px;
-  color: #fff;
-  text-shadow: 0px 0px 30px #333;
+body > ul {
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
-  font-style: italic;
-  font-family:  "Merriweather", serif;
-  padding-bottom: 10px;
-  color: #fff;
-  text-shadow: 0px 0px 30px #333;
+  font-size: 64px;
 }
 
-hr {
+h1, h2, h3 {
+  font-weight: inherit;
   margin: 0;
-  height: 0;
-  padding: 0 0 30px 0;
-
-  border: none;
-  border-top: medium double #fff;
-  color: #fff;
-  text-align: center;
-  text-shadow: 0px 0px 30px #333;
 }
 
-hr:after {
-  content: "§";
-  display: inline-block;
-  position: relative;
-  top: -0.7em;
-  font-size: 1.5em;
-  padding: 0 0.25em;
-  color: #fff;
-  /*background: #fff;*/
+h2, h3 {
+  text-align: right;
+  font-size: inherit;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
-.hexagon {
-  overflow: hidden;
-  visibility: hidden;
-  -webkit-transform: rotate(120deg);
-  -moz-transform: rotate(120deg);
-  -o-transform: rotate(120deg);
-  transform: rotate(120deg);
-  position: relative;
-  z-index: 10000;
-}
-.hexagon-in1 {
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  -webkit-transform: rotate(-60deg);
-  -moz-transform: rotate(-60deg);
-  -o-transform: rotate(-60deg);
-  transform: rotate(-60deg);
+h2 {
+  font-size: 24px;
+  position: absolute;
 }
 
-.hexagon-in2 {
-  width: 100%;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-position: 50%;
-  background-image: url("../images/neil.jpg");
-  background-size: 250px auto;
-  visibility: visible;
-  -webkit-transform: rotate(-60deg);
-  -moz-transform: rotate(-60deg);
-  -o-transform: rotate(-60deg);
-  transform: rotate(-60deg);
+h3 {
+  bottom: -20px;
+  font-size: 18px;
 }
 
-.hexagon2 {
-  width: 250px;
-  height: 300px;
-  left: 50%;
-  margin: 0 0 0 -125px;
-
+.invert {
+  background: #1f1f1f;
+  color: #dcdccc;
 }
 
-@media (max-width: 480px) {
-  #tagline a {
-    position: relative;
-    clear: both;
-    float: left;
-    width: 100px;
-    left: 50%;
-    margin: 10px -50px;
-  }
+.invert h2, .invert h3 {
+  color: #7f9f7f;
+}
 
-  #wrapper {
-    top: 150px;
-  }
+.string, .regexp {
+  color: #f39;
+}
+
+.keyword {
+  color: #00c;
+}
+
+.comment {
+  color: #777;
+  font-style: oblique;
+}
+
+.number {
+  color: #369;
+}
+
+.class, .special {
+  color: #1181B8;
+}
+
+body > svg {
+  position: absolute;
+  top: -80px;
+  left: -160px;
 }
